@@ -64,21 +64,13 @@ export default {
     z-index: 2;
     transform: rotateY(0deg);
     opacity: 1;
-    background: linear-gradient(
-      to right,
-      hsl(145, 56%, 53%),
-      hsl(145, 56%, 43%)
-    );
+    background: linear-gradient(to right, hsl(3, 89%, 82%), hsl(254, 55%, 90%));
   }
   .card-back {
     z-index: 1;
     opacity: 0;
     transform: rotateY(-180deg);
-    background: linear-gradient(
-      to right,
-      hsl(200, 56%, 53%),
-      hsl(200, 56%, 43%)
-    );
+    background: linear-gradient(to right, hsl(254, 55%, 90%), hsl(3, 89%, 82%));
   }
 }
 </style>

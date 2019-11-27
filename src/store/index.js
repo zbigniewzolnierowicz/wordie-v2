@@ -4,39 +4,62 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  languagesChosen: {
-    from: "pl",
-    to: "en"
-  },
   state: {
     words: {
       categoryNetworking: [
         {
-          id: 0,
           wordTranslations: {
             en: "switch",
             pl: "przełącznik"
           }
         }
       ],
-      programming: [
+      categoryProgramming: [
         {
-          id: 0,
           wordTranslations: {
             en: "variable",
             pl: "zmienna"
           }
         }
       ],
-      operatingSystems: [
+      categoryOperatingSystems: [
         {
-          id: 0,
           wordTranslations: {
             en: "interrupt request",
             pl: "przerwanie"
           }
         }
       ]
+    },
+    languagesChosen: {
+      from: "pl",
+      to: "en"
+    }
+  },
+  getters: {
+    getWordsByCategory: state => category => {
+      let categoryName;
+      switch (category) {
+        case "Programming".toLowerCase():
+          categoryName = "categoryProgramming";
+          break;
+        case "OperatingSystems".toLowerCase():
+          categoryName = "categoryOperatingSystems";
+          break;
+        case "Networking".toLowerCase():
+          categoryName = "categoryNetworking";
+          break;
+        default:
+          categoryName = false;
+          break;
+      }
+      return categoryName
+        ? state.words[categoryName]
+        : [
+            ...state.words.categoryProgramming,
+            ...state.words.categoryOperatingSystems,
+            ...state.words.categoryNetworking
+          ];
     }
   },
   mutations: {
