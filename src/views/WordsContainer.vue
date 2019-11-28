@@ -1,16 +1,13 @@
 <template>
   <div class="wordsList">
     <Navbar v-if="appear" :expandable="false">
+      <router-link to="/words/all">All words</router-link>
       <router-link to="/words/programming">Programming</router-link>
       <router-link to="/words/operatingsystems">Operating Systems</router-link>
       <router-link to="/words/networking">Networking</router-link>
     </Navbar>
     <ul class="words">
-      <Card
-        v-for="word in words"
-        :key="word.wordTranslations.en"
-        :word="word"
-      />
+      <Card v-for="word in words" :key="word.id" :word="word" />
     </ul>
   </div>
 </template>
@@ -85,6 +82,7 @@ nav {
   gap: 30em;
   * {
     margin: 1ch 1em;
+    flex: 1 1 auto;
   }
 }
 </style>

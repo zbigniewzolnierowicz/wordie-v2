@@ -20,40 +20,7 @@ export default {
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Josefin+Sans|Quattrocento&display=swap");
-// Small tablets and large smartphones (landscape view)
-$screen-sm-min: 576px;
-// Small tablets (portrait view)
-$screen-md-min: 768px;
-// Tablets and small desktops
-$screen-lg-min: 992px;
-// Large tablets and desktops
-$screen-xl-min: 1200px;
-@mixin sm {
-  @media (min-width: #{$screen-sm-min}) {
-    @content;
-  }
-}
 
-// Medium devices
-@mixin md {
-  @media (min-width: #{$screen-md-min}) {
-    @content;
-  }
-}
-
-// Large devices
-@mixin lg {
-  @media (min-width: #{$screen-lg-min}) {
-    @content;
-  }
-}
-
-// Extra large devices
-@mixin xl {
-  @media (min-width: #{$screen-xl-min}) {
-    @content;
-  }
-}
 html,
 body,
 h1,

@@ -31,25 +31,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../breakpoints.scss";
 .navbar {
   background: white;
   margin: 1em 2ch;
   padding: 1em 0.5em;
-  display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: auto;
-  &.expandable {
-    grid-template-columns: 12fr 1fr;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @include lg {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    &.expandable {
+      grid-template-columns: 12fr 1fr;
+    }
   }
   .buttons {
     display: flex;
     width: 100%;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-evenly;
     grid-column: 1 / 1;
     grid-row: 1 / 1;
+    @include lg {
+      flex-direction: row;
+    }
   }
   .toggler {
     width: fit-content;
@@ -70,15 +80,20 @@ export default {
   border-radius: 0.5em;
   box-shadow: 0 5px 20px hsla(0, 0%, 0%, 0.19), 0 3px 6px hsla(0, 0%, 0%, 0.23);
   a {
+    background: white;
     padding: 0.5em 1ch;
     border-radius: 0.5em;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     transition: 0.1s box-shadow ease-in-out, 0.1s transform ease-in-out;
+    margin: 0.7em 1ch;
     &:hover {
       box-shadow: 0 3px 3px rgba(0, 0, 0, 0.12), 0 3px 5px rgba(0, 0, 0, 0.24);
     }
     &.router-link-exact-active {
       transform: scale(1.2);
+    }
+    @include lg {
+      margin: 0 1ch;
     }
   }
 }
