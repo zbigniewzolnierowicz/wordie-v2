@@ -1,16 +1,59 @@
 <template>
   <main>
-    <nav>
+    <Navbar :expandable="true">
       <router-link to="/about">About</router-link>
       <router-link to="/">Home</router-link>
       <router-link to="/words">Words</router-link>
-    </nav>
+    </Navbar>
     <router-view />
   </main>
 </template>
 
+<script>
+import Navbar from "./components/Navbar";
+export default {
+  components: {
+    Navbar
+  }
+};
+</script>
+
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Josefin+Sans|Quattrocento&display=swap");
+// Small tablets and large smartphones (landscape view)
+$screen-sm-min: 576px;
+// Small tablets (portrait view)
+$screen-md-min: 768px;
+// Tablets and small desktops
+$screen-lg-min: 992px;
+// Large tablets and desktops
+$screen-xl-min: 1200px;
+@mixin sm {
+  @media (min-width: #{$screen-sm-min}) {
+    @content;
+  }
+}
+
+// Medium devices
+@mixin md {
+  @media (min-width: #{$screen-md-min}) {
+    @content;
+  }
+}
+
+// Large devices
+@mixin lg {
+  @media (min-width: #{$screen-lg-min}) {
+    @content;
+  }
+}
+
+// Extra large devices
+@mixin xl {
+  @media (min-width: #{$screen-xl-min}) {
+    @content;
+  }
+}
 html,
 body,
 h1,
@@ -41,29 +84,8 @@ h5 {
 body {
   font-family: "Josefin Sans", sans-serif;
 }
-nav {
-  background: white;
-  margin: 1em 2ch;
-  padding: 1em 0.5em;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  box-sizing: content-box;
-  border-radius: 0.5em;
-  justify-content: space-evenly;
-  box-shadow: 0 5px 20px hsla(0, 0%, 0%, 0.19), 0 3px 6px hsla(0, 0%, 0%, 0.23);
-  a {
-    padding: 0.5em 1ch;
-    border-radius: 0.5em;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    transition: 0.1s box-shadow ease-in-out, 0.1s transform ease-in-out;
-    &:hover {
-      box-shadow: 0 3px 3px rgba(0, 0, 0, 0.12), 0 3px 5px rgba(0, 0, 0, 0.24);
-    }
-    &.router-link-exact-active {
-      transform: scale(1.2);
-    }
-  }
+main {
+  overflow: auto;
 }
 </style>
 

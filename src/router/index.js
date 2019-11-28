@@ -16,7 +16,8 @@ const routes = [
   },
   {
     path: "/words/:category",
-    component: () => import(/* webpackChunkName: words */ "../views/Words.vue")
+    component: () =>
+      import(/* webpackChunkName: words */ "../views/WordsContainer.vue")
   },
   {
     path: "/about",

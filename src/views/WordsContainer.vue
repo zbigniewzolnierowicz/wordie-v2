@@ -1,50 +1,36 @@
 <template>
   <div class="wordsList">
-    <nav ref="navbar">
+    <Navbar v-if="appear" :expandable="false">
       <router-link to="/words/programming">Programming</router-link>
       <router-link to="/words/operatingsystems">Operating Systems</router-link>
       <router-link to="/words/networking">Networking</router-link>
-    </nav>
-    <Card
-      v-for="word in words"
-      :key="word.wordTranslations.en"
-      :word="word"
-    ></Card>
+    </Navbar>
+    <ul class="words">
+      <Card
+        v-for="word in words"
+        :key="word.wordTranslations.en"
+        :word="word"
+      />
+    </ul>
   </div>
 </template>
 
 <script>
 import Card from "@/components/Card";
 import store from "../store";
-import { TimelineLite } from "gsap";
+import Navbar from "@/components/Navbar";
 export default {
   name: "words",
   data() {
     return {
       words: null,
-      transitionName: "slideIn"
+      appear: true
     };
-  },
-  mounted() {
-    const { navbar } = this.$refs;
-    const timeline = new TimelineLite();
-    timeline.to(navbar, { y: 0, opacity: 1, scale: 1 });
   },
   beforeRouteEnter(to, from, next) {
     next(vm =>
-      vm.setData(store.getters.getWordsByCategory(to.params.category))
+      vm.setData(store.getters.getWordsByCategory(to.params.category), true)
     );
-  },
-  watch: {
-    $route(to, from) {
-      const toDepth = to.path.split("/").length;
-      const fromDepth = from.path.split("/").length;
-      if (toDepth < fromDepth) {
-        const { navbar } = this.$refs;
-        const timeline = new TimelineLite();
-        timeline.to(navbar, { y: "-200px", opacity: 0, scale: 0 });
-      }
-    }
   },
   beforeRouteUpdate(to, from, next) {
     this.$set(this.$data, "words", null);
@@ -61,13 +47,19 @@ export default {
     );
     next();
   },
+  beforeRouteLeave(to, from, next) {
+    this.$set(this.$data, "appear", false);
+    next();
+  },
   components: {
-    Card
+    Card,
+    Navbar
   },
   beforeDestroy() {},
   methods: {
-    setData(posts) {
+    setData(posts, navVisible) {
       this.$set(this.$data, "words", posts);
+      this.$set(this.$data, "appear", navVisible);
     }
   }
 };
@@ -75,8 +67,24 @@ export default {
 
 <style lang="scss" scoped>
 nav {
-  opacity: 0;
-  transform: translateY(-200px) scale(0);
   z-index: -1;
+}
+.wordsList {
+  height: fit-content;
+  width: 100%;
+  overflow: auto;
+}
+.words {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: fit-content;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  gap: 30em;
+  * {
+    margin: 1ch 1em;
+  }
 }
 </style>
