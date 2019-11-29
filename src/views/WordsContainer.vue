@@ -37,7 +37,6 @@ nav {
 .wordsList {
   height: fit-content;
   width: 100%;
-  overflow: auto;
 }
 .words {
   display: flex;

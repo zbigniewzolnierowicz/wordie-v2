@@ -1388,7 +1388,7 @@ export default new Vuex.Store({
   },
   mutations: {
     ADD_CARD(state, payload) {
-      Vue.set(state.words, state.words.length, payload.card);
+      Vue.set(state.words, state.words.length, payload);
     },
     MODIFY_CARD(state, payload) {
       console.log(payload);
