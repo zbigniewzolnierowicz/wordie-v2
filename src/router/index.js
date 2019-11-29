@@ -16,14 +16,12 @@ const routes = [
   },
   {
     path: "/words/:category",
-    component: () =>
-      import(/* webpackChunkName: words */ "../views/WordsContainer.vue")
+    component: () => import("../views/WordsContainer.vue")
   },
   {
     path: "/about",
     name: "about",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    component: () => import("../views/About.vue")
   }
 ];
 

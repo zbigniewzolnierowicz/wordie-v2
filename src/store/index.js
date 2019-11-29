@@ -1367,7 +1367,9 @@ export default new Vuex.Store({
   getters: {
     getWordsByCategory: state => category => {
       return category === "all"
-        ? state.words
+        ? state.words.sort(
+            (a, b) => a.wordTranslations.en - b.wordTranslations.en
+          )
         : state.words.filter(word => word.category === category);
     }
   },

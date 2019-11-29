@@ -122,8 +122,10 @@ export default {
     opacity: 1;
     transition: 0.3s transform ease, 0.3s opacity ease;
     backface-visibility: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     .word {
       grid-area: word;
+      font-size: 1.5em;
     }
     .buttons {
       grid-area: buttons;

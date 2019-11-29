@@ -1,6 +1,6 @@
 <template>
   <div class="wordsList">
-    <Navbar v-if="appear" :expandable="false">
+    <Navbar :expandable="false">
       <router-link to="/words/all">All words</router-link>
       <router-link to="/words/programming">Programming</router-link>
       <router-link to="/words/operatingsystems">Operating Systems</router-link>
@@ -18,46 +18,14 @@ import store from "../store";
 import Navbar from "@/components/Navbar";
 export default {
   name: "words",
-  data() {
-    return {
-      words: null,
-      appear: true
-    };
-  },
-  beforeRouteEnter(to, from, next) {
-    next(vm =>
-      vm.setData(store.getters.getWordsByCategory(to.params.category), true)
-    );
-  },
-  beforeRouteUpdate(to, from, next) {
-    this.$set(this.$data, "words", null);
-    console.groupCollapsed(`Exiting: ${from.path}! 🛫`);
-    console.table(from);
-    console.groupEnd();
-    console.groupCollapsed(`Entering: ${to.path}! 🛬`);
-    console.table(to);
-    console.groupEnd();
-    this.$set(
-      this.$data,
-      "words",
-      store.getters.getWordsByCategory(to.params.category)
-    );
-    next();
-  },
-  beforeRouteLeave(to, from, next) {
-    this.$set(this.$data, "appear", false);
-    next();
+  computed: {
+    words() {
+      return store.getters.getWordsByCategory(this.$route.params.category);
+    }
   },
   components: {
     Card,
     Navbar
-  },
-  beforeDestroy() {},
-  methods: {
-    setData(posts, navVisible) {
-      this.$set(this.$data, "words", posts);
-      this.$set(this.$data, "appear", navVisible);
-    }
   }
 };
 </script>

@@ -21,6 +21,9 @@ export default {
   },
   mounted() {
     feather.replace();
+    if (!this.$props.expandable) {
+      this.$set(this.$data, "show", true);
+    }
   },
   updated() {
     if (!this.$props.expandable) {
