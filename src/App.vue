@@ -5,7 +5,9 @@
       <router-link to="/">Home</router-link>
       <router-link to="/words">Words</router-link>
     </Navbar>
-    <router-view />
+    <transition name="ani">
+      <router-view />
+    </transition>
   </main>
 </template>
 
@@ -20,6 +22,21 @@ export default {
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Josefin+Sans|Quattrocento&display=swap");
+.ani-enter,
+.ani-leave-to {
+  position: absolute;
+  transform: scaleY(0);
+}
+.ani-enter-to,
+.ani-leave {
+  position: absolute;
+  transform: scaleY(1);
+}
+.ani-enter-active,
+.ani-leave-active {
+  transition: 1s transform ease-in-out;
+  z-index: 999;
+}
 
 html,
 body,
