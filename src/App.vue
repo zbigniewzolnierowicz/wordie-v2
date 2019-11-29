@@ -1,9 +1,9 @@
 <template>
   <main>
     <Navbar :expandable="true">
-      <router-link to="/about">About</router-link>
       <router-link to="/">Home</router-link>
       <router-link to="/words">Words</router-link>
+      <router-link to="/user/dashboard">User dashboard</router-link>
     </Navbar>
     <transition name="ani">
       <router-view />
@@ -22,19 +22,28 @@ export default {
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Josefin+Sans|Quattrocento&display=swap");
+:root {
+  --card-unknown-color-primary: #d3cce3;
+  --card-unknown-color-secondary: #e9e4f0;
+  --card-learned-color-primary: #e1eec3;
+  --card-learned-color-secondary: #f05053;
+  --card-mastered-color-primary: #ffe000;
+  --card-mastered-color-secondary: #799f0c;
+}
 .ani-enter,
 .ani-leave-to {
-  position: absolute;
-  transform: scaleY(0);
+  transform: scale(0);
 }
 .ani-enter-to,
 .ani-leave {
-  position: absolute;
-  transform: scaleY(1);
+  transform: scale(1);
 }
 .ani-enter-active,
 .ani-leave-active {
-  transition: 1s transform ease-in-out;
+  position: absolute;
+  top: 12vh;
+  transition: 0.75s transform ease-in-out;
+  transform-origin: top center;
   z-index: 999;
 }
 
@@ -70,6 +79,8 @@ body {
 }
 main {
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 </style>
 

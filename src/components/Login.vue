@@ -1,5 +1,5 @@
 <template>
-  <form @submit="submitHandler">
+  <form @submit.prevent="submitHandler" ref="loginData">
     <label for="login">Username:</label>
     <input type="text" name="login" />
     <label for="password">Password:</label>
@@ -16,8 +16,11 @@ import { LogInIcon } from "vue-feather-icons";
 export default {
   name: "login",
   methods: {
-    submitHandler(event) {
-      this.$emit("loggedIn", event);
+    submitHandler() {
+      this.$emit("loggedIn", {
+        login: this.$refs.loginData.login.value,
+        password: this.$refs.loginData.password.value
+      });
     }
   },
   components: {

@@ -1371,6 +1371,19 @@ export default new Vuex.Store({
             (a, b) => a.wordTranslations.en - b.wordTranslations.en
           )
         : state.words.filter(word => word.category === category);
+    },
+    getAmountOfWordStatus: state => status => {
+      return state.words.filter(word => word.status === status).length;
+    },
+    getAmountOfWordStatusCategory: state => (status, category) => {
+      return state.words
+        .filter(word => word.category === category)
+        .filter(word => word.status === status).length;
+    },
+    getCategories: state => {
+      return Array.from(
+        new Set(state.words.map(value => (value = value.category)))
+      );
     }
   },
   mutations: {

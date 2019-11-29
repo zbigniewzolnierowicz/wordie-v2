@@ -1,6 +1,13 @@
 <template>
   <div class="card-wrapper" :class="{ flipped: isFlipped }">
-    <div class="card card-front">
+    <div
+      class="card card-front"
+      :class="{
+        unknown: icon === 'unknown',
+        learned: icon === 'learned',
+        mastered: icon === 'mastered'
+      }"
+    >
       <p class="word translation">
         {{ word.wordTranslations[translateTo] }}
       </p>
@@ -16,7 +23,14 @@
         </button>
       </div>
     </div>
-    <div class="card card-back">
+    <div
+      class="card card-back"
+      :class="{
+        unknown: icon === 'unknown',
+        learned: icon === 'learned',
+        mastered: icon === 'mastered'
+      }"
+    >
       <p class="word originalWord">
         {{ word.wordTranslations[translateFrom] }}
       </p>
@@ -167,13 +181,53 @@ export default {
     z-index: 2;
     transform: rotateY(0deg);
     opacity: 1;
-    background: linear-gradient(to right, hsl(3, 89%, 82%), hsl(254, 55%, 90%));
+    &.unknown {
+      background: linear-gradient(
+        to right,
+        var(--card-unknown-color-primary),
+        var(--card-unknown-color-secondary)
+      );
+    }
+    &.learned {
+      background: linear-gradient(
+        to right,
+        var(--card-learned-color-primary),
+        var(--card-learned-color-secondary)
+      );
+    }
+    &.mastered {
+      background: linear-gradient(
+        to right,
+        var(--card-mastered-color-primary),
+        var(--card-mastered-color-secondary)
+      );
+    }
   }
   .card-back {
     z-index: 1;
-    opacity: 0;
     transform: rotateY(-180deg);
-    background: linear-gradient(to right, hsl(254, 55%, 90%), hsl(3, 89%, 82%));
+    opacity: 0;
+    &.unknown {
+      background: linear-gradient(
+        to right,
+        var(--card-unknown-color-secondary),
+        var(--card-unknown-color-primary)
+      );
+    }
+    &.learned {
+      background: linear-gradient(
+        to right,
+        var(--card-learned-color-secondary),
+        var(--card-learned-color-primary)
+      );
+    }
+    &.mastered {
+      background: linear-gradient(
+        to right,
+        var(--card-mastered-color-secondary),
+        var(--card-mastered-color-primary)
+      );
+    }
   }
 }
 </style>

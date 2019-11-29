@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import WordsContainer from "../views/WordsContainer.vue";
 
 Vue.use(VueRouter);
 
@@ -16,12 +17,11 @@ const routes = [
   },
   {
     path: "/words/:category",
-    component: () => import("../views/WordsContainer.vue")
+    component: WordsContainer
   },
   {
-    path: "/about",
-    name: "about",
-    component: () => import("../views/About.vue")
+    path: "/user/dashboard",
+    component: () => import("../views/UserPanel.vue")
   }
 ];
 

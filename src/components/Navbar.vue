@@ -60,7 +60,7 @@ export default {
     justify-content: space-evenly;
     grid-column: 1 / 1;
     grid-row: 1 / 1;
-    @include lg {
+    @include md {
       flex-direction: row;
     }
   }
