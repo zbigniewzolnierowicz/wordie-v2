@@ -22,6 +22,10 @@ const routes = [
   {
     path: "/user/dashboard",
     component: () => import("../views/UserPanel.vue")
+  },
+  {
+    path: "/admin",
+    component: () => import("../views/AdminPanel.vue")
   }
 ];
 

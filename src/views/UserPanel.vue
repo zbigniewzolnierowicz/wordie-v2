@@ -184,6 +184,16 @@ export default {
 
 <style lang="scss" scoped>
 @import "../breakpoints.scss";
+input {
+  padding: 1em 2ch;
+  width: 100%;
+  margin: 1em 2ch;
+  box-sizing: border-box;
+}
+label {
+  align-self: flex-start;
+  color: black;
+}
 form {
   display: flex;
   flex-direction: column;
@@ -194,16 +204,6 @@ form {
   padding: 1em 5ch;
   box-sizing: border-box;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.19), 0 3px 6px rgba(0, 0, 0, 0.23);
-  input {
-    padding: 1em 2ch;
-    width: 100%;
-    margin: 1em 2ch;
-    box-sizing: border-box;
-  }
-  label {
-    align-self: flex-start;
-    color: black;
-  }
   button[type="submit"] {
     display: flex;
     flex-direction: row;

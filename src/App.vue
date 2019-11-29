@@ -4,6 +4,7 @@
       <router-link to="/">Home</router-link>
       <router-link to="/words">Words</router-link>
       <router-link to="/user/dashboard">User dashboard</router-link>
+      <router-link to="/admin">Admin dashboard</router-link>
     </Navbar>
     <transition name="ani">
       <router-view />
