@@ -24,12 +24,12 @@ export default {
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Josefin+Sans|Quattrocento&display=swap");
 :root {
-  --card-unknown-color-primary: #d3cce3;
-  --card-unknown-color-secondary: #e9e4f0;
-  --card-learned-color-primary: #e1eec3;
-  --card-learned-color-secondary: #f05053;
-  --card-mastered-color-primary: #ffe000;
-  --card-mastered-color-secondary: #799f0c;
+  --card-unknown-color-primary: #bdc3c7;
+  --card-unknown-color-secondary: #2c3e50;
+  --card-learned-color-primary: #ffe000;
+  --card-learned-color-secondary: #799f0c;
+  --card-mastered-color-primary: #fc4a1a;
+  --card-mastered-color-secondary: #f7b733;
 }
 .ani-enter,
 .ani-leave-to {
