@@ -8,13 +8,18 @@
     </Navbar>
     <Navbar :expandable="false">
       <div class="filters">
+        <FilterIcon />
         <select v-model="statusFilter">
-          <option :value="null"></option>
+          <option :value="null">No filter</option>
           <option value="unknown">Unknown</option>
           <option value="learned">Learned</option>
           <option value="mastered">Mastered</option>
         </select>
+      </div>
+      <div class="sorting">
+        <ListIcon />
         <select v-model="setSortingFunction">
+          <option value="noop">Don't sort</option>
           <option value="alphabeticallyEn"
             >Sort alphabetically by english equivalent</option
           >
@@ -35,6 +40,7 @@
 import Card from "@/components/Card";
 import store from "../store";
 import Navbar from "@/components/Navbar";
+import { FilterIcon, ListIcon } from "vue-feather-icons";
 export default {
   name: "words",
   data() {
@@ -56,6 +62,9 @@ export default {
           if (a.category === b.category) return 0;
           else if (a.category > b.category) return 1;
           else return -1;
+        },
+        noop: () => {
+          return 0;
         }
       }
     };
@@ -65,9 +74,13 @@ export default {
       return store.getters.getWordsByCategory(this.$route.params.category);
     },
     filteredWords() {
-      return this.words.filter(word =>
-        this.$data.statusFilter ? word.status === this.$data.statusFilter : true
-      );
+      return this.words
+        .filter(word =>
+          this.$data.statusFilter
+            ? word.status === this.$data.statusFilter
+            : true
+        )
+        .sort(this.$data.sortingFunctions[this.$data.setSortingFunction]);
     }
   },
   methods: {
@@ -77,7 +90,9 @@ export default {
   },
   components: {
     Card,
-    Navbar
+    Navbar,
+    FilterIcon,
+    ListIcon
   }
 };
 </script>
@@ -103,5 +118,11 @@ nav {
     margin: 1ch 1em;
     flex: 1 1 auto;
   }
+}
+.filters,
+.sorting {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 </style>
