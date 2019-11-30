@@ -11,6 +11,7 @@
       <p class="word translation">
         {{ word.wordTranslations[translateTo] }}
       </p>
+      <p class="category">{{ word.category }}</p>
       <div class="buttons">
         <button
           @click="isFlipped = !isFlipped"
@@ -34,6 +35,7 @@
       <p class="word originalWord">
         {{ word.wordTranslations[translateFrom] }}
       </p>
+      <p class="category">{{ word.category }}</p>
       <div class="buttons">
         <button
           @click="isFlipped = !isFlipped"
@@ -127,10 +129,11 @@ export default {
     height: 100%;
     width: 100%;
     grid-template-columns: 1em auto 1em;
-    grid-template-rows: 1fr 3fr 2fr;
+    grid-template-rows: 1fr 1fr 6fr 4fr;
     border-radius: 0.5em;
     grid-template-areas:
       ". . ."
+      ". category ."
       ". word ."
       "buttons buttons buttons";
     opacity: 1;
@@ -140,6 +143,9 @@ export default {
     .word {
       grid-area: word;
       font-size: 1.5em;
+    }
+    .category {
+      grid-area: category;
     }
     .buttons {
       grid-area: buttons;

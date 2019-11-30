@@ -75,7 +75,8 @@ h4,
 h5 {
   font-family: "Quattrocento", "Times New Roman", Times, serif;
 }
-body {
+body,
+button {
   font-family: "Josefin Sans", sans-serif;
 }
 main {

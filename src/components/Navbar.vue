@@ -82,10 +82,14 @@ export default {
   box-sizing: content-box;
   border-radius: 0.5em;
   box-shadow: 0 5px 20px hsla(0, 0%, 0%, 0.19), 0 3px 6px hsla(0, 0%, 0%, 0.23);
-  a {
+  a,
+  button,
+  select {
     background: white;
     padding: 0.5em 1ch;
     border-radius: 0.5em;
+    border: none;
+    color: black;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     transition: 0.1s box-shadow ease-in-out, 0.1s transform ease-in-out;
     margin: 0.7em 1ch;
