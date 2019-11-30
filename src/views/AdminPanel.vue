@@ -1,17 +1,20 @@
 <template>
   <div id="adminPanel">
-    <form @submit.prevent="addCard" ref="formData">
-      <input type="text" name="translationEn" />
-      <input type="text" name="translationPl" />
-      <select name="category">
-        <option value="networking">Networking</option>
-        <option value="programming">Programming</option>
-        <option value="operatingsystems">Operating systems</option>
-      </select>
-      <button type="submit">
-        <CheckIcon />
-      </button>
-    </form>
+    <div class="newCard">
+      <h3>Add a new entry</h3>
+      <form @submit.prevent="addCard" ref="formData">
+        <input type="text" name="translationEn" />
+        <input type="text" name="translationPl" />
+        <select name="category">
+          <option value="networking">Networking</option>
+          <option value="programming">Programming</option>
+          <option value="operatingsystems">Operating systems</option>
+        </select>
+        <button type="submit">
+          <CheckIcon />
+        </button>
+      </form>
+    </div>
     <div class="cardList">
       <AdminCard
         @delete="handleDelete"
@@ -72,17 +75,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.newCard {
+  margin: 1em;
+  align-items: center;
+  border-radius: 1em;
+  padding: 1em 5ch;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.19), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
 form {
   display: flex;
   flex-direction: row;
   background: white;
-  align-items: center;
   justify-content: center;
-  border-radius: 1em;
-  padding: 1em 5ch;
-  margin: 1em;
   box-sizing: border-box;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.19), 0 3px 6px rgba(0, 0, 0, 0.23);
+  align-items: center;
   input,
   select {
     padding: 1em 2ch;
@@ -104,9 +110,6 @@ form {
     border: none;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     transition: 0.1s box-shadow ease-in-out;
-    .learningIcon {
-      margin-left: 1ch;
-    }
     &:hover {
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
       &:active {
