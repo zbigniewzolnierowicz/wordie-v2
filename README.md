@@ -1,5 +1,9 @@
 # wordie-v2
 
+## Requirements
+
+Node.js (and npm).
+
 ## Project setup
 ```
 npm install
@@ -19,6 +23,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
