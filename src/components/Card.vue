@@ -77,7 +77,6 @@ export default {
   },
   watch: {
     "word.status": function() {
-      console.log("Status changed! 🎉");
       this.icon = this.$props.word.status;
     }
   },

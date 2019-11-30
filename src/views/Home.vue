@@ -25,9 +25,8 @@ export default {
     Login
   },
   methods: {
-    logInHandler(event) {
+    logInHandler() {
       this.$set(this.$data, "loggedIn", true);
-      console.table(event);
     }
   }
 };

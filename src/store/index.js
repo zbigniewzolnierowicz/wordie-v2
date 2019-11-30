@@ -1391,16 +1391,11 @@ export default new Vuex.Store({
       Vue.set(state.words, state.words.length, payload);
     },
     MODIFY_CARD(state, payload) {
-      console.log(payload);
       const card = payload;
       const indexOfModifiedCard = state.words.findIndex(
         card => card.id === payload.id
       );
       const cardBeforeMod = state.words[indexOfModifiedCard];
-      console.log({
-        ...cardBeforeMod,
-        ...payload
-      });
       Vue.set(state.words, indexOfModifiedCard, {
         ...cardBeforeMod,
         ...card
