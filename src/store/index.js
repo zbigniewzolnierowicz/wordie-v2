@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
+import { get, post } from "axios";
+const MILISECONDS_IN_A_SECOND = 1000;
 Vue.use(Vuex);
 const LEARNING_STATUS = ["unknown", "learned", "mastered"];
 
@@ -1362,6 +1363,16 @@ export default new Vuex.Store({
     languagesChosen: {
       from: "pl",
       to: "en"
+    },
+    user: {
+      isLoggedIn: false,
+      username: undefined,
+      display_name: undefined
+    },
+    dialog: {
+      isVisible: false,
+      header: "",
+      text: ""
     }
   },
   getters: {
@@ -1422,8 +1433,97 @@ export default new Vuex.Store({
           status: LEARNING_STATUS[(statusID + 1) % LEARNING_STATUS.length]
         }
       );
+    },
+    SET_USER_USERNAME(state, payload) {
+      console.log(payload);
+      state.user.username = payload;
+    },
+    SET_USER_DISPLAY_NAME(state, payload) {
+      console.log(payload);
+      state.user.display_name = payload;
+    },
+    SET_USER_LOGGED_IN(state, payload) {
+      state.user.isLoggedIn = payload;
+    },
+    SET_DIALOG_VISIBILITY(state, payload) {
+      state.dialog.isVisible = payload;
+    },
+    SET_DIALOG_HEADER(state, payload) {
+      state.dialog.header = payload;
+    },
+    SET_DIALOG_TEXT(state, payload) {
+      state.dialog.text = payload;
     }
   },
-  actions: {},
+  actions: {
+    async logIn({ commit, dispatch }, payload) {
+      try {
+        let response = await post("http://localhost/user/login.php", payload, {
+          withCredentials: true
+        });
+        let { username, display_name } = response.data.user_info;
+        if (response.data.response === "log_in_success") {
+          commit("SET_USER_USERNAME", username);
+          commit("SET_USER_DISPLAY_NAME", display_name);
+          commit("SET_USER_LOGGED_IN", true);
+          dispatch("showDialog", {
+            time: 3,
+            header: "Logged in.",
+            text: `Logged in as ${username}.`
+          });
+        }
+      } catch (error) {
+        commit("SET_USER_LOGGED_IN", false);
+        dispatch("showDialog", {
+          time: 3,
+          header: "Log in failed.",
+          text: `Cause: ${JSON.stringify(error.response)}`
+        });
+      }
+    },
+    async showDialog({ commit }, payload) {
+      commit("SET_DIALOG_VISIBILITY", true);
+      commit("SET_DIALOG_HEADER", payload.header);
+      commit("SET_DIALOG_TEXT", payload.text);
+      setTimeout(() => {
+        commit("SET_DIALOG_VISIBILITY", false);
+        commit("SET_DIALOG_HEADER", "");
+        commit("SET_DIALOG_TEXT", "");
+      }, payload.time * MILISECONDS_IN_A_SECOND);
+    },
+    async getLoggedInData({ commit }) {
+      let response = await get("http://localhost/user/get_user_info.php", {
+        withCredentials: true
+      });
+      console.log(response);
+      let { name, display_name } = response.data.user_info;
+      commit("SET_USER_USERNAME", name);
+      commit("SET_USER_DISPLAY_NAME", display_name);
+      commit("SET_USER_LOGGED_IN", true);
+    },
+    async logOut({ commit, dispatch }) {
+      try {
+        let response = await get("http://localhost/user/logout.php", {
+          withCredentials: true
+        });
+        console.log(response);
+        if (response.data.response === "log_out_success") {
+          commit("SET_USER_USERNAME", undefined);
+          commit("SET_USER_DISPLAY_NAME", undefined);
+          commit("SET_USER_LOGGED_IN", false);
+          dispatch("showDialog", {
+            time: 3,
+            header: "Log out succeeded!"
+          });
+        }
+      } catch (error) {
+        dispatch("showDialog", {
+          time: 3,
+          header: "Log out failed.",
+          text: `Cause: ${JSON.stringify(error.response)}`
+        });
+      }
+    }
+  },
   modules: {}
 });

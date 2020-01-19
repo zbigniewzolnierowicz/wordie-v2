@@ -9,5 +9,10 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
+  created: function() {
+    if (document.cookie.match(/PHPSESSID=\w*/)) {
+      this.$store.dispatch("getLoggedInData");
+    }
+  },
   render: h => h(App)
 }).$mount("#app");

@@ -113,7 +113,7 @@ nav {
   height: 100%;
   padding: 0;
   margin: 0;
-  gap: 30em;
+  gap: 5ch 1em;
   * {
     margin: 1ch 1em;
     flex: 1 1 auto;

@@ -85,11 +85,13 @@ export default {
         }
       },
       editingUsername: false,
-      editingPassword: false,
-      username: "tester"
+      editingPassword: false
     };
   },
   computed: {
+    username() {
+      return this.$store.state.user.display_name;
+    },
     countOfUnknown() {
       return this.$store.getters.getAmountOfWordStatus("unknown");
     },

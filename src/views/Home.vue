@@ -15,17 +15,20 @@
 import Login from "../components/Login";
 export default {
   name: "home",
-  data() {
-    return {
-      loggedIn: false,
-      username: "tester"
-    };
+  computed: {
+    loggedIn() {
+      return this.$store.state.user.isLoggedIn;
+    },
+    username() {
+      return this.$store.state.user.username;
+    }
   },
   components: {
     Login
   },
   methods: {
-    logInHandler() {
+    logInHandler(payload) {
+      this.$store.dispatch("logIn", payload);
       this.$set(this.$data, "loggedIn", true);
     }
   }

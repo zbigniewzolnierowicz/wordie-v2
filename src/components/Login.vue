@@ -18,7 +18,7 @@ export default {
   methods: {
     submitHandler() {
       this.$emit("loggedIn", {
-        login: this.$refs.loginData.login.value,
+        username: this.$refs.loginData.login.value,
         password: this.$refs.loginData.password.value
       });
     }

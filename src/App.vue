@@ -5,18 +5,46 @@
       <router-link to="/words">Words</router-link>
       <router-link to="/user/dashboard">User dashboard</router-link>
       <router-link to="/admin">Admin dashboard</router-link>
+      <button v-if="loggedIn" @click="logOut()">Log out</button>
     </Navbar>
     <transition name="ani">
       <router-view />
     </transition>
+    <Dialog
+      :isvisible="dialogIsVisible"
+      :errorheader="dialogHeader"
+      :errortext="dialogText"
+    />
   </main>
 </template>
 
 <script>
 import Navbar from "./components/Navbar";
+import Dialog from "./components/Dialog";
 export default {
+  name: "App",
   components: {
-    Navbar
+    Navbar,
+    Dialog
+  },
+  computed: {
+    dialogIsVisible() {
+      return this.$store.state.dialog.isVisible;
+    },
+    dialogHeader() {
+      return this.$store.state.dialog.header;
+    },
+    dialogText() {
+      return this.$store.state.dialog.text;
+    },
+    loggedIn() {
+      return this.$store.state.user.isLoggedIn;
+    }
+  },
+  methods: {
+    logOut() {
+      this.$store.dispatch("logOut");
+    }
   }
 };
 </script>
