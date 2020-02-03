@@ -26,6 +26,10 @@ const routes = [
   {
     path: "/admin",
     component: () => import("../views/AdminPanel.vue")
+  },
+  {
+    path: "/register",
+    component: () => import("../views/Register.vue")
   }
 ];
 

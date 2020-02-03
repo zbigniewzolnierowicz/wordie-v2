@@ -15,10 +15,13 @@ export default {
 <style lang="scss" scoped>
 .dialog-body {
   display: none;
-  background: white;
+  background: rgba(255, 255, 255, 0.8);
   position: absolute;
   bottom: 0;
   right: 0;
+  margin: 1em;
+  padding: 1em;
+  border-radius: 1em;
 }
 .dialog-body.active {
   display: block;

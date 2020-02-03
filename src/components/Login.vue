@@ -4,7 +4,7 @@
     <input type="text" name="login" />
     <label for="password">Password:</label>
     <input type="password" name="password" />
-    <router-link to="/about">Don't have an account?</router-link>
+    <router-link to="/register">Don't have an account?</router-link>
     <button type="submit">
       <LogInIcon />
     </button>
