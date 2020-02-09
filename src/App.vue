@@ -2,9 +2,11 @@
   <main>
     <Navbar :expandable="true">
       <router-link to="/">Home</router-link>
-      <router-link to="/words">Words</router-link>
-      <router-link to="/user/dashboard">User dashboard</router-link>
-      <router-link to="/admin">Admin dashboard</router-link>
+      <router-link v-if="loggedIn" to="/words">Words</router-link>
+      <router-link v-if="loggedIn" to="/user/dashboard">
+        User dashboard
+      </router-link>
+      <router-link v-if="loggedIn" to="/admin">Admin dashboard</router-link>
       <button v-if="loggedIn" @click="logOut()">Log out</button>
     </Navbar>
     <transition name="ani">
