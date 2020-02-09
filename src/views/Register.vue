@@ -51,7 +51,7 @@ export default {
         this.errors.push("Passwords must match!");
       if (this.errors.length === 0) {
         post(
-          "http://localhost/Wordie_Server/src/api/signup.php",
+          "http://localhost/api/signup.php",
           {
             username: this.login,
             display_name: this.displayname,

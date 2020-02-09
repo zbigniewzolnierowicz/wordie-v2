@@ -1458,7 +1458,7 @@ export default new Vuex.Store({
   actions: {
     async logIn({ commit, dispatch }, payload) {
       try {
-        let response = await post("http://localhost/user/login.php", payload, {
+        let response = await post("http://localhost/api/login.php", payload, {
           withCredentials: true
         });
         let { username, display_name } = response.data.user_info;
@@ -1492,7 +1492,7 @@ export default new Vuex.Store({
       }, payload.time * MILISECONDS_IN_A_SECOND);
     },
     async getLoggedInData({ commit }) {
-      let response = await get("http://localhost/user/get_user_info.php", {
+      let response = await get("http://localhost/api/get_user_info.php", {
         withCredentials: true
       });
       console.log(response);
@@ -1503,7 +1503,7 @@ export default new Vuex.Store({
     },
     async logOut({ commit, dispatch }) {
       try {
-        let response = await get("http://localhost/user/logout.php", {
+        let response = await get("http://localhost/api/logout.php", {
           withCredentials: true
         });
         console.log(response);
