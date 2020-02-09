@@ -1435,11 +1435,9 @@ export default new Vuex.Store({
       );
     },
     SET_USER_USERNAME(state, payload) {
-      console.log(payload);
       state.user.username = payload;
     },
     SET_USER_DISPLAY_NAME(state, payload) {
-      console.log(payload);
       state.user.display_name = payload;
     },
     SET_USER_LOGGED_IN(state, payload) {
@@ -1495,7 +1493,6 @@ export default new Vuex.Store({
       let response = await get("http://localhost/api/get_user_info.php", {
         withCredentials: true
       });
-      console.log(response);
       let { name, display_name } = response.data.user_info;
       commit("SET_USER_USERNAME", name);
       commit("SET_USER_DISPLAY_NAME", display_name);
@@ -1506,7 +1503,6 @@ export default new Vuex.Store({
         let response = await get("http://localhost/api/logout.php", {
           withCredentials: true
         });
-        console.log(response);
         if (response.data.response === "log_out_success") {
           commit("SET_USER_USERNAME", undefined);
           commit("SET_USER_DISPLAY_NAME", undefined);
