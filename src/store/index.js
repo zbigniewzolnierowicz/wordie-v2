@@ -1475,7 +1475,7 @@ export default new Vuex.Store({
         dispatch("showDialog", {
           time: 3,
           header: "Log in failed.",
-          text: `Cause: ${JSON.stringify(error.response)}`
+          text: `Cause: ${JSON.stringify(error.description || "Unknown")}`
         });
       }
     },
@@ -1516,7 +1516,7 @@ export default new Vuex.Store({
         dispatch("showDialog", {
           time: 3,
           header: "Log out failed.",
-          text: `Cause: ${JSON.stringify(error.response)}`
+          text: `Cause: ${JSON.stringify(error.description || "Unknown")}`
         });
       }
     }
