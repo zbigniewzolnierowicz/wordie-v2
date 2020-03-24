@@ -5,29 +5,7 @@
       <div class="picture">
         <img src="http://placekitten.com/300/300" alt="" />
       </div>
-      <div class="editUsername" v-if="editingUsername">
-        <input type="text" v-model="username" />
-      </div>
-      <h4 v-else-if="!editingUsername">Username: {{ username }}</h4>
-      <button @click="editingUsername = !editingUsername">
-        {{ editingUsername ? "Save" : "Edit username" }}
-      </button>
-      <div class="editPassword" v-if="editingPassword">
-        <form>
-          <label for="oldPassword">Old password:</label>
-          <input type="password" name="oldPassword" />
-          <label for="newPassword">New password:</label>
-          <input type="password" name="newPassword" />
-          <label for="newPasswordConfirm">Confirm your new password</label>
-          <input type="password" name="newPasswordConfirm" />
-          <button type="submit" @click="editingPassword = false">
-            Change password
-          </button>
-        </form>
-      </div>
-      <button @click="editingPassword = true" v-if="!editingPassword">
-        Change password
-      </button>
+      <h4>Username: {{ username }}</h4>
     </div>
     <div class="box stats">
       <h3>Statistics</h3>
@@ -176,6 +154,11 @@ export default {
           ]
         }
       ];
+    }
+  },
+  methods: {
+    changePassword(e) {
+      console.log(e);
     }
   },
   components: {
