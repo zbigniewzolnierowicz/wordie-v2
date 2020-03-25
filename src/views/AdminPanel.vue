@@ -15,7 +15,7 @@
         </button>
       </form>
     </div>
-    <div class="cardList">
+    <div class="wordList">
       <AdminCard
         @delete="handleDelete"
         @edit="handleEdit"
@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     handleDelete(event) {
-      this.$store.commit("REMOVE_CARD", event);
+      this.$store.dispatch("deleteWord", event);
     },
     handleEdit(event) {
       this.$store.commit("MODIFY_CARD", event);
@@ -125,15 +125,15 @@ form {
     margin: 1ch 1ch;
   }
 }
-.cardList {
+.wordList {
   overflow: auto;
   margin: 0 1em;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.19), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 0.5em;
-  .card:nth-child(odd) {
+  .word:nth-child(odd) {
     background: hsl(0, 0%, 100%);
   }
-  .card:nth-child(even) {
+  .word:nth-child(even) {
     background: hsl(0, 0%, 90%);
   }
 }

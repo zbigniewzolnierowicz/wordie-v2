@@ -27,8 +27,10 @@ export default {
   },
   methods: {
     logInHandler(payload) {
-      this.$store.dispatch("logIn", payload);
-      this.$set(this.$data, "loggedIn", true);
+      this.$store.dispatch("logIn", payload).then(() => {
+        this.$store.dispatch("getAllWords");
+        this.$set(this.$data, "loggedIn", true);
+      });
     }
   }
 };

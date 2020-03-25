@@ -1,7 +1,7 @@
 <template>
-  <div class="card-wrapper" :class="{ flipped: isFlipped }">
+  <div class="word-wrapper" :class="{ flipped: isFlipped }">
     <div
-      class="card card-front"
+      class="word word-front"
       :class="{
         unknown: icon === 'unknown',
         learned: icon === 'learned',
@@ -25,7 +25,7 @@
       </div>
     </div>
     <div
-      class="card card-back"
+      class="word word-back"
       :class="{
         unknown: icon === 'unknown',
         learned: icon === 'learned',
@@ -101,7 +101,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../breakpoints.scss";
-.card-wrapper {
+.word-wrapper {
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto;
@@ -112,16 +112,16 @@ export default {
   height: auto;
   perspective: 200rem;
   &.flipped {
-    .card-front {
+    .word-front {
       transform: rotateY(180deg);
       opacity: 0;
     }
-    .card-back {
+    .word-back {
       transform: rotateY(0deg);
       opacity: 1;
     }
   }
-  .card {
+  .word {
     grid-row: 1 / 1;
     grid-column: 1 / 1;
     display: grid;
@@ -182,55 +182,55 @@ export default {
       margin: 1ch 1ch;
     }
   }
-  .card-front {
+  .word-front {
     z-index: 2;
     transform: rotateY(0deg);
     opacity: 1;
     &.unknown {
       background: linear-gradient(
         to right,
-        var(--card-unknown-color-primary),
-        var(--card-unknown-color-secondary)
+        var(--word-unknown-color-primary),
+        var(--word-unknown-color-secondary)
       );
     }
     &.learned {
       background: linear-gradient(
         to right,
-        var(--card-learned-color-primary),
-        var(--card-learned-color-secondary)
+        var(--word-learned-color-primary),
+        var(--word-learned-color-secondary)
       );
     }
     &.mastered {
       background: linear-gradient(
         to right,
-        var(--card-mastered-color-primary),
-        var(--card-mastered-color-secondary)
+        var(--word-mastered-color-primary),
+        var(--word-mastered-color-secondary)
       );
     }
   }
-  .card-back {
+  .word-back {
     z-index: 1;
     transform: rotateY(-180deg);
     opacity: 0;
     &.unknown {
       background: linear-gradient(
         to right,
-        var(--card-unknown-color-secondary),
-        var(--card-unknown-color-primary)
+        var(--word-unknown-color-secondary),
+        var(--word-unknown-color-primary)
       );
     }
     &.learned {
       background: linear-gradient(
         to right,
-        var(--card-learned-color-secondary),
-        var(--card-learned-color-primary)
+        var(--word-learned-color-secondary),
+        var(--word-learned-color-primary)
       );
     }
     &.mastered {
       background: linear-gradient(
         to right,
-        var(--card-mastered-color-secondary),
-        var(--card-mastered-color-primary)
+        var(--word-mastered-color-secondary),
+        var(--word-mastered-color-primary)
       );
     }
   }

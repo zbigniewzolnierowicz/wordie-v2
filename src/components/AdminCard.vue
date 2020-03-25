@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="word">
     <div class="translations">
       <p v-if="!edit">{{ word.wordTranslations.en }}</p>
       <input v-if="edit" type="text" v-model="translationsEdit.en" />
@@ -27,7 +27,7 @@
 <script>
 import { Edit3Icon, CheckIcon, Trash2Icon } from "vue-feather-icons";
 export default {
-  name: "admincard",
+  name: "adminword",
   props: ["word", "edit"],
   data() {
     return {
@@ -109,7 +109,7 @@ select {
   margin: 0.5em 0.5ch;
   padding: 1em 1ch;
 }
-.card {
+.word {
   display: flex;
   flex-direction: row;
   box-sizing: border-box;
