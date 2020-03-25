@@ -1440,6 +1440,9 @@ export default new Vuex.Store({
     SET_USER_DISPLAY_NAME(state, payload) {
       state.user.display_name = payload;
     },
+    SET_USER_ROLE(state, payload) {
+      state.user.role = payload;
+    },
     SET_USER_LOGGED_IN(state, payload) {
       state.user.isLoggedIn = payload;
     },
@@ -1459,11 +1462,13 @@ export default new Vuex.Store({
         let response = await post("http://localhost/api/login.php", payload, {
           withCredentials: true
         });
-        let { username, display_name } = response.data.user_info;
+        let { username, display_name, role } = response.data.user_info;
+        console.log(response.data.user_info);
         if (response.data.response === "log_in_success") {
           commit("SET_USER_USERNAME", username);
           commit("SET_USER_DISPLAY_NAME", display_name);
           commit("SET_USER_LOGGED_IN", true);
+          commit("SET_USER_ROLE", role);
           dispatch("showDialog", {
             time: 3,
             header: "Logged in.",

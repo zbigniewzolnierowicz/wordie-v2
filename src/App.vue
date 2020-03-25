@@ -2,12 +2,16 @@
   <main>
     <Navbar :expandable="true">
       <router-link to="/">Home</router-link>
-      <router-link v-if="loggedIn" to="/words">Words</router-link>
-      <router-link v-if="loggedIn" to="/user/dashboard">
-        User dashboard
-      </router-link>
-      <router-link v-if="loggedIn" to="/admin">Admin dashboard</router-link>
-      <button v-if="loggedIn" @click="logOut()">Log out</button>
+      <template v-if="loggedIn">
+        <router-link to="/words">Words</router-link>
+        <router-link v-if="userData.role === 'user'" to="/user/dashboard">
+          User dashboard
+        </router-link>
+        <router-link to="/admin" v-if="userData.role === 'admin'">
+          Admin dashboard
+        </router-link>
+        <button @click="logOut()">Log out</button>
+      </template>
     </Navbar>
     <transition name="ani">
       <router-view />
@@ -41,6 +45,9 @@ export default {
     },
     loggedIn() {
       return this.$store.state.user.isLoggedIn;
+    },
+    userData() {
+      return this.$store.state.user;
     }
   },
   methods: {

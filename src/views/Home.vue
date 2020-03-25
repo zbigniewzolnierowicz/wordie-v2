@@ -3,7 +3,6 @@
     <header class="hero">
       <h1>Welcome to Wordie!</h1>
       <h2>Your #1 place to learn tech words</h2>
-      <h3 v-if="loggedIn">You are logged in as: {{ username }}</h3>
       <transition name="hide">
         <Login v-if="!loggedIn" @loggedIn="logInHandler" />
       </transition>
