@@ -156,11 +156,6 @@ export default {
       ];
     }
   },
-  methods: {
-    changePassword(e) {
-      console.log(e);
-    }
-  },
   components: {
     GChart
   }

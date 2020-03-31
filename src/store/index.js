@@ -106,7 +106,7 @@ export default new Vuex.Store({
           withCredentials: true
         });
         let { username, display_name, role } = response.data.user_info;
-        console.log(response.data.user_info);
+
         if (response.data.response === "log_in_success") {
           commit("SET_USER_USERNAME", username);
           commit("SET_USER_DISPLAY_NAME", display_name);
@@ -174,7 +174,7 @@ export default new Vuex.Store({
         let result = await get("http://localhost/api/words.php", {
           withCredentials: true
         });
-        console.log(result);
+
         if (result.data.response === "get_words_success")
           for (const word of result.data.words) {
             let wordToBeAdded = {
@@ -183,7 +183,7 @@ export default new Vuex.Store({
               category: word.category,
               status: word.word_status || "unknown"
             };
-            console.log(wordToBeAdded);
+
             commit("ADD_CARD", wordToBeAdded);
           }
       } catch (error) {
@@ -198,7 +198,6 @@ export default new Vuex.Store({
       }
     },
     async deleteWord({ commit, dispatch }, payload) {
-      console.log(payload);
       try {
         let result = await post(
           "http://localhost/api/words.php",
@@ -210,7 +209,7 @@ export default new Vuex.Store({
             withCredentials: true
           }
         );
-        console.log(result);
+
         if (result.data.response === "delete_word_success")
           commit("REMOVE_CARD", payload);
       } catch (error) {
@@ -243,7 +242,7 @@ export default new Vuex.Store({
             withCredentials: true
           }
         );
-        console.log(result);
+
         if (result.data.response === "update_word_success")
           commit("MODIFY_CARD", payload);
       } catch (error) {
@@ -268,7 +267,7 @@ export default new Vuex.Store({
             withCredentials: true
           }
         );
-        console.log(result);
+
         if (result.data.response === "insert_word_success") {
           this.state.words = [];
           dispatch("getAllWords");
@@ -294,7 +293,7 @@ export default new Vuex.Store({
         id: payload.id,
         word_status: newStatus
       };
-      console.log(updatePayload);
+
       try {
         let result = await put(
           "http://localhost/api/word_status.php",
@@ -303,7 +302,7 @@ export default new Vuex.Store({
             withCredentials: true
           }
         );
-        console.log(result);
+
         if (result.data.response === "set_word_status_success") {
           commit("SET_STATUS", updatePayload);
         }
