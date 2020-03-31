@@ -32,7 +32,6 @@
 <script>
 import AdminCard from "@/components/AdminCard.vue";
 import { CheckIcon } from "vue-feather-icons";
-import uuidv4 from "uuid/v4";
 export default {
   name: "adminpanel",
   data() {
@@ -54,15 +53,14 @@ export default {
       this.$store.dispatch("deleteWord", event);
     },
     handleEdit(event) {
-      this.$store.commit("MODIFY_CARD", event);
+      this.$store.dispatch("updateWord", event);
       this.$set(this.$data, "whatToEdit", null);
     },
     handleEditMode(event) {
       this.$set(this.$data, "whatToEdit", event);
     },
     addCard() {
-      this.$store.commit("ADD_CARD", {
-        id: uuidv4(),
+      this.$store.dispatch("insertWord", {
         category: this.$refs.formData.category.value,
         wordTranslations: {
           en: this.$refs.formData.translationEn.value,

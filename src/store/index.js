@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { get, post, delete as axiosDelete } from "axios";
+import { get, post, put } from "axios";
 const MILISECONDS_IN_A_SECOND = 1000;
 Vue.use(Vuex);
 const LEARNING_STATUS = ["unknown", "learned", "mastered"];
@@ -204,21 +204,85 @@ export default new Vuex.Store({
       }
     },
     async deleteWord({ commit, dispatch }, payload) {
+      console.log(payload);
       try {
-        let result = await axiosDelete(
+        let result = await post(
           "http://localhost/api/words.php",
-          payload,
+          {
+            id: payload,
+            type: "delete"
+          },
           {
             withCredentials: true
           }
         );
+        console.log(result);
         if (result.data.response === "delete_word_success")
           commit("REMOVE_CARD", payload);
       } catch (error) {
-        commit("SET_USER_LOGGED_IN", false);
         dispatch("showDialog", {
           time: 3,
           header: "Word deletion failed.",
+          text: `Cause: ${JSON.stringify(error.description || "Unknown")}`
+        });
+      }
+    },
+    async updateWord({ commit, dispatch }, payload) {
+      let requestPayload = {
+        ...payload,
+        translations: [
+          {
+            language: "en",
+            translation: payload.wordTranslations.en
+          },
+          {
+            language: "pl",
+            translation: payload.wordTranslations.pl
+          }
+        ]
+      };
+      try {
+        let result = await put(
+          "http://localhost/api/words.php",
+          requestPayload,
+          {
+            withCredentials: true
+          }
+        );
+        console.log(result);
+        if (result.data.response === "update_word_success")
+          commit("MODIFY_CARD", payload);
+      } catch (error) {
+        dispatch("showDialog", {
+          time: 3,
+          header: "Word update failed.",
+          text: `Cause: ${JSON.stringify(error.description || "Unknown")}`
+        });
+      }
+    },
+    async insertWord({ dispatch }, payload) {
+      let insertPayload = {
+        translation_en: payload.wordTranslations.en,
+        translation_pl: payload.wordTranslations.pl,
+        category: payload.category
+      };
+      try {
+        let result = await post(
+          "http://localhost/api/words.php",
+          insertPayload,
+          {
+            withCredentials: true
+          }
+        );
+        console.log(result);
+        if (result.data.response === "insert_word_success") {
+          this.state.words = [];
+          dispatch("getAllWords");
+        }
+      } catch (error) {
+        dispatch("showDialog", {
+          time: 3,
+          header: "Word insert failed.",
           text: `Cause: ${JSON.stringify(error.description || "Unknown")}`
         });
       }
