@@ -102,7 +102,7 @@ export default new Vuex.Store({
     async logIn({ commit, dispatch, state }, payload) {
       try {
         state.words = [];
-        let response = await post("http://localhost/api/login.php", payload, {
+        let response = await post("/api/login.php", payload, {
           withCredentials: true
         });
         let { username, display_name, role } = response.data.user_info;
@@ -138,7 +138,7 @@ export default new Vuex.Store({
       }, payload.time * MILISECONDS_IN_A_SECOND);
     },
     async getLoggedInData({ commit }) {
-      let response = await get("http://localhost/api/get_user_info.php", {
+      let response = await get("/api/get_user_info.php", {
         withCredentials: true
       });
       let { name, display_name } = response.data.user_info;
@@ -148,7 +148,7 @@ export default new Vuex.Store({
     },
     async logOut({ commit, dispatch, state }) {
       try {
-        let response = await get("http://localhost/api/logout.php", {
+        let response = await get("/api/logout.php", {
           withCredentials: true
         });
         if (response.data.response === "log_out_success") {
@@ -171,7 +171,7 @@ export default new Vuex.Store({
     },
     async getAllWords({ commit, dispatch }) {
       try {
-        let result = await get("http://localhost/api/words.php", {
+        let result = await get("/api/words.php", {
           withCredentials: true
         });
 
@@ -200,7 +200,7 @@ export default new Vuex.Store({
     async deleteWord({ commit, dispatch }, payload) {
       try {
         let result = await post(
-          "http://localhost/api/words.php",
+          "/api/words.php",
           {
             id: payload,
             type: "delete"
@@ -235,13 +235,9 @@ export default new Vuex.Store({
         ]
       };
       try {
-        let result = await put(
-          "http://localhost/api/words.php",
-          requestPayload,
-          {
-            withCredentials: true
-          }
-        );
+        let result = await put("/api/words.php", requestPayload, {
+          withCredentials: true
+        });
 
         if (result.data.response === "update_word_success")
           commit("MODIFY_CARD", payload);
@@ -260,13 +256,9 @@ export default new Vuex.Store({
         category: payload.category
       };
       try {
-        let result = await post(
-          "http://localhost/api/words.php",
-          insertPayload,
-          {
-            withCredentials: true
-          }
-        );
+        let result = await post("/api/words.php", insertPayload, {
+          withCredentials: true
+        });
 
         if (result.data.response === "insert_word_success") {
           this.state.words = [];
@@ -295,13 +287,9 @@ export default new Vuex.Store({
       };
 
       try {
-        let result = await put(
-          "http://localhost/api/word_status.php",
-          updatePayload,
-          {
-            withCredentials: true
-          }
-        );
+        let result = await put("/api/word_status.php", updatePayload, {
+          withCredentials: true
+        });
 
         if (result.data.response === "set_word_status_success") {
           commit("SET_STATUS", updatePayload);

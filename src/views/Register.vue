@@ -51,7 +51,7 @@ export default {
         this.errors.push("Passwords must match!");
       if (this.errors.length === 0) {
         post(
-          "http://localhost/api/signup.php",
+          "/api/signup.php",
           {
             username: this.login,
             display_name: this.displayname,
