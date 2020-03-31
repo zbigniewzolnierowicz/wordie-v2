@@ -3,7 +3,9 @@
     <Navbar :expandable="true">
       <router-link to="/">Home</router-link>
       <template v-if="loggedIn">
-        <router-link to="/words">Words</router-link>
+        <router-link v-if="userData.role === 'user'" to="/words">
+          Words
+        </router-link>
         <router-link v-if="userData.role === 'user'" to="/user/dashboard">
           User dashboard
         </router-link>

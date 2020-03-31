@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import { get, post, put } from "axios";
 const MILISECONDS_IN_A_SECOND = 1000;
 Vue.use(Vuex);
-const LEARNING_STATUS = ["unknown", "learned", "mastered"];
+const LEARNING_STATUS = ["UNKNOWN", "LEARNED", "MASTERED"];
 
 export default new Vuex.Store({
   state: {
@@ -66,19 +66,13 @@ export default new Vuex.Store({
         state.words.findIndex(word => word.id === payload)
       );
     },
-    CYCLE_STATUS(state, payload) {
-      const CURRENT_STATUS =
-        state.words[state.words.findIndex(word => word.id === payload.id)]
-          .status;
-      let statusID = LEARNING_STATUS.findIndex(
-        status => status === CURRENT_STATUS
-      );
+    SET_STATUS(state, payload) {
       Vue.set(
         state.words,
         state.words.findIndex(word => word.id === payload.id),
         {
           ...state.words[state.words.findIndex(word => word.id === payload.id)],
-          status: LEARNING_STATUS[(statusID + 1) % LEARNING_STATUS.length]
+          status: payload.word_status
         }
       );
     },
@@ -187,7 +181,7 @@ export default new Vuex.Store({
               id: word.id,
               wordTranslations: { en: word.en, pl: word.pl },
               category: word.category,
-              status: word.status || "unknown"
+              status: word.word_status || "unknown"
             };
             console.log(wordToBeAdded);
             commit("ADD_CARD", wordToBeAdded);
@@ -283,6 +277,40 @@ export default new Vuex.Store({
         dispatch("showDialog", {
           time: 3,
           header: "Word insert failed.",
+          text: `Cause: ${JSON.stringify(error.description || "Unknown")}`
+        });
+      }
+    },
+    async setStatus({ commit, dispatch, state }, payload) {
+      const CURRENT_STATUS =
+        state.words[state.words.findIndex(word => word.id === payload.id)]
+          .status;
+      let statusID = LEARNING_STATUS.findIndex(
+        status => status === CURRENT_STATUS
+      );
+      const newStatus =
+        LEARNING_STATUS[(statusID + 1) % LEARNING_STATUS.length];
+      const updatePayload = {
+        id: payload.id,
+        word_status: newStatus
+      };
+      console.log(updatePayload);
+      try {
+        let result = await put(
+          "http://localhost/api/word_status.php",
+          updatePayload,
+          {
+            withCredentials: true
+          }
+        );
+        console.log(result);
+        if (result.data.response === "set_word_status_success") {
+          commit("SET_STATUS", updatePayload);
+        }
+      } catch (error) {
+        dispatch("showDialog", {
+          time: 3,
+          header: "Word update failed.",
           text: `Cause: ${JSON.stringify(error.description || "Unknown")}`
         });
       }

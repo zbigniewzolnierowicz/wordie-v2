@@ -43,7 +43,7 @@
 </template>
 
 <script>
-const LEARNING_STATUS = ["unknown", "learned", "mastered"];
+const LEARNING_STATUS = ["UNKNOWN", "LEARNED", "MASTERED"];
 const CATEGORIES = ["Networking", "Programming", "Operating systems"];
 import { GChart } from "vue-google-charts";
 export default {
@@ -71,13 +71,13 @@ export default {
       return this.$store.state.user.display_name;
     },
     countOfUnknown() {
-      return this.$store.getters.getAmountOfWordStatus("unknown");
+      return this.$store.getters.getAmountOfWordStatus("UNKNOWN");
     },
     countOfLearned() {
-      return this.$store.getters.getAmountOfWordStatus("learned");
+      return this.$store.getters.getAmountOfWordStatus("LEARNED");
     },
     countOfMastered() {
-      return this.$store.getters.getAmountOfWordStatus("mastered");
+      return this.$store.getters.getAmountOfWordStatus("MASTERED");
     },
     counters() {
       let returnedArray = [];

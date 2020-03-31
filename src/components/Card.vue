@@ -3,12 +3,12 @@
     <div
       class="word word-front"
       :class="{
-        unknown: icon === 'unknown',
-        learned: icon === 'learned',
-        mastered: icon === 'mastered'
+        unknown: icon === 'UNKNOWN',
+        learned: icon === 'LEARNED',
+        mastered: icon === 'MASTERED'
       }"
     >
-      <p class="word translation">
+      <p class="translation">
         {{ word.wordTranslations[translateTo] }}
       </p>
       <p class="category">{{ word.category }}</p>
@@ -18,21 +18,21 @@
           v-html="refreshCWIcon()"
         ></button>
         <button @click="cycleStatus()">
-          <HelpCircleIcon v-if="icon === 'unknown'" />
-          <EyeIcon v-if="icon === 'learned'" />
-          <AwardIcon v-if="icon === 'mastered'" />
+          <HelpCircleIcon v-if="icon === 'UNKNOWN'" />
+          <EyeIcon v-if="icon === 'LEARNED'" />
+          <AwardIcon v-if="icon === 'MASTERED'" />
         </button>
       </div>
     </div>
     <div
       class="word word-back"
       :class="{
-        unknown: icon === 'unknown',
-        learned: icon === 'learned',
-        mastered: icon === 'mastered'
+        unknown: icon === 'UNKNOWN',
+        learned: icon === 'LEARNED',
+        mastered: icon === 'MASTERED'
       }"
     >
-      <p class="word originalWord">
+      <p class="originalWord">
         {{ word.wordTranslations[translateFrom] }}
       </p>
       <p class="category">{{ word.category }}</p>
@@ -42,9 +42,9 @@
           v-html="refreshCCWIcon()"
         ></button>
         <button @click="cycleStatus()">
-          <HelpCircleIcon v-if="icon === 'unknown'" />
-          <EyeIcon v-if="icon === 'learned'" />
-          <AwardIcon v-if="icon === 'mastered'" />
+          <HelpCircleIcon v-if="icon === 'UNKNOWN'" />
+          <EyeIcon v-if="icon === 'LEARNED'" />
+          <AwardIcon v-if="icon === 'MASTERED'" />
         </button>
       </div>
     </div>
@@ -88,7 +88,7 @@ export default {
       return feather.icons["refresh-cw"].toSvg();
     },
     cycleStatus() {
-      store.commit("CYCLE_STATUS", { id: this.$props.word.id });
+      store.dispatch("setStatus", { id: this.$props.word.id });
     }
   },
   components: {
@@ -106,6 +106,7 @@ export default {
   grid-template-columns: auto;
   grid-template-rows: auto;
   width: 100%;
+  max-height: 300px;
   @include md {
     width: 30ch;
   }
@@ -128,7 +129,7 @@ export default {
     height: 100%;
     width: 100%;
     grid-template-columns: 1em auto 1em;
-    grid-template-rows: 1fr 1fr 6fr 4fr;
+    grid-template-rows: repeat(4, auto);
     border-radius: 0.5em;
     grid-template-areas:
       ". . ."
@@ -139,7 +140,8 @@ export default {
     transition: 0.3s transform ease, 0.3s opacity ease;
     backface-visibility: hidden;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    .word {
+    .translation,
+    .originalWord {
       grid-area: word;
       font-size: 1.5em;
     }
